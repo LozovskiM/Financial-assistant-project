@@ -28,6 +28,8 @@ namespace Financial_assistant
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +49,14 @@ namespace Financial_assistant
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseSwagger();
 
             app.UseRouting();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Financial assistant");
+            });
 
             app.UseEndpoints(endpoints =>
             {
