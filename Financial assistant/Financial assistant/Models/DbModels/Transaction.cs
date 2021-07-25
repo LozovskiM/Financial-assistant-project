@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Financial_assistant.Models.Contracts;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace Financial_assistant.Models.DbModels
 {
-    public class Transaction
+    public class Transaction : IModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Financial_assistant.Models.Contracts;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace Financial_assistant.Models.DbModels
 {
-    public class Currency
+    public class Currency : IModel
     {
         public Currency()
         {
