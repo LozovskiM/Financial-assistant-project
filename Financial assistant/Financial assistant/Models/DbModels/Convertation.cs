@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Financial_assistant.Models.DbModels
 {
-    public class Convertation : IModel
+    public class Convertation : IModel, IDeletedModel
     {
         public int Id { get; set; }
         public int CurrencyFromId { get; set; }
@@ -15,5 +15,6 @@ namespace Financial_assistant.Models.DbModels
 
         public virtual Currency CurrencyFrom { get; set; }
         public virtual Currency CurrencyTo { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

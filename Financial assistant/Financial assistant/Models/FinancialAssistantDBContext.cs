@@ -28,7 +28,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("BankAccount");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -51,7 +51,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("Convertation");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.CurrencyFrom)
                     .WithMany(p => p.ConvertationCurrencyFroms)
@@ -70,7 +70,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("Currency");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Code)
                     .IsRequired()
@@ -85,7 +85,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("Transaction");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
@@ -116,7 +116,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("TransactionType");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Color)
                     .IsRequired()
@@ -136,7 +136,7 @@ namespace Financial_assistant.Models
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.County)
                     .IsRequired()

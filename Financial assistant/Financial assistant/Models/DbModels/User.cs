@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Financial_assistant.Models.DbModels
 {
-    public class User : IModel
+    public class User : IModel, IDeletedModel
     {
         public User()
         {
@@ -22,5 +22,6 @@ namespace Financial_assistant.Models.DbModels
 
         public virtual ICollection<BankAccount> BankAccounts { get; set; }
         public virtual ICollection<TransactionType> TransactionTypes { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
