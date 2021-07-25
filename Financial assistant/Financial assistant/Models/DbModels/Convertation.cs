@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Financial_assistant.Models
+namespace Financial_assistant.Models.DbModels
 {
     public class Convertation
     {
