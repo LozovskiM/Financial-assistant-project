@@ -1,3 +1,4 @@
+using Financial_assistant.Mapping;
 using Financial_assistant.Models;
 using Financial_assistant.Services.Contracts;
 using Financial_assistant.Services.Impl;
@@ -10,6 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
+using System.Reflection;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Financial_assistant
 {
@@ -44,6 +49,13 @@ namespace Financial_assistant
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionTypeService, TransactionTypeService>();
             services.AddScoped<IUserService, UserService>();
+
+            var assemblies = new List<Assembly>()
+            {
+                typeof(CurrencyMapperProfile).Assembly,
+            };
+
+            services.AddAutoMapper(assemblies, ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
