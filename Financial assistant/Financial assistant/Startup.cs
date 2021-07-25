@@ -1,4 +1,6 @@
 using Financial_assistant.Models;
+using Financial_assistant.Services.Contracts;
+using Financial_assistant.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,13 @@ namespace Financial_assistant
             });
 
             services.AddSwaggerGen();
+
+            services.AddScoped<IBankAccountService, BankAccountService>();
+            services.AddScoped<IConvertationService, ConvertationService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<ITransactionTypeService, TransactionTypeService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
