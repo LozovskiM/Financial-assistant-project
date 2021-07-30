@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Financial_assistant.Models.DbModels;
+using Financial_assistant.Services.BaseDbServices.Extensions;
 
 #nullable disable
 
@@ -37,14 +38,19 @@ namespace Financial_assistant.Models
                 entity.HasOne(d => d.Currency)
                     .WithMany(p => p.BankAccounts)
                     .HasForeignKey(d => d.CurrencyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_BankAccount_Currency");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.BankAccounts)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_BankAccount_User");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
             modelBuilder.Entity<Convertation>(entity =>
@@ -56,14 +62,19 @@ namespace Financial_assistant.Models
                 entity.HasOne(d => d.CurrencyFrom)
                     .WithMany(p => p.ConvertationCurrencyFroms)
                     .HasForeignKey(d => d.CurrencyFromId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_ConvertationFrom_Currency");
 
                 entity.HasOne(d => d.CurrencyTo)
                     .WithMany(p => p.ConvertationCurrencyTos)
                     .HasForeignKey(d => d.CurrencyToId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_ConvertationTo_Currency");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
             modelBuilder.Entity<Currency>(entity =>
@@ -79,6 +90,17 @@ namespace Financial_assistant.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.HasMany(x => x.ConvertationCurrencyFroms).WithOne(x => x.CurrencyFrom).HasForeignKey(x => x.CurrencyFromId).IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasMany(x => x.ConvertationCurrencyTos).WithOne(x => x.CurrencyTo).HasForeignKey(x => x.CurrencyToId).IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
             modelBuilder.Entity<Transaction>(entity =>
@@ -96,20 +118,25 @@ namespace Financial_assistant.Models
                 entity.HasOne(d => d.BankAccount)
                     .WithMany(p => p.Transactions)
                     .HasForeignKey(d => d.BankAccountId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_Transaction_BankAccount");
 
                 entity.HasOne(d => d.Currency)
                     .WithMany(p => p.Transactions)
                     .HasForeignKey(d => d.CurrencyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_Transaction_Currency");
 
                 entity.HasOne(d => d.TransactionType)
                     .WithMany(p => p.Transactions)
                     .HasForeignKey(d => d.TransactionTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_Transaction_TransactionType");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
             modelBuilder.Entity<TransactionType>(entity =>
@@ -130,6 +157,11 @@ namespace Financial_assistant.Models
                     .WithMany(p => p.TransactionTypes)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_TransactionType_User");
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -154,6 +186,11 @@ namespace Financial_assistant.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.IsDeleted)
+                    .IsRequired();
+
+                entity.IsSoftDelete();
             });
 
         }

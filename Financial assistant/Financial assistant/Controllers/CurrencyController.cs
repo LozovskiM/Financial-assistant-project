@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Financial_assistant.Controllers.BaseControllers;
-using Financial_assistant.DTO.Classes;
+using Financial_assistant.DTO.Сlasses;
+using Financial_assistant.Models.DbModels;
 using Financial_assistant.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,69 @@ namespace Financial_assistant.Controllers
             if (currency == null) return NotFound();
 
             return Ok(Mapper.Map<CurrencyDto>(currency));
+        }
+
+        /// <summary>
+        ///     Create currency.
+        /// </summary>
+        /// <param name="CurrencyCreateDto">The currency need to be created.</param>
+        /// <returns>The created currency.</returns>
+        /// <response code="200">The currency created.</response>
+        /// <response code="400">Internal server error.</response>
+        [HttpPost]
+        [ProducesResponseType(typeof(CurrencyDto), 200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> CreateAsync([FromBody] CurrencyCreateDto currencyCreateDto)
+        {
+            var modelToCreate = Mapper.Map<Currency>(currencyCreateDto);
+            var createdModel = await _currencyService.CreateAsync(modelToCreate);
+            var createdDto = Mapper.Map<CurrencyDto>(createdModel);
+
+            return Ok(createdDto);
+        }
+
+        /// <summary>
+        ///     Update currency.
+        /// </summary>
+        /// <param name="currencyId">The currency identifier.</param>
+        /// <param name="CurrencyCreateDto">The currency model.</param>
+        /// <returns>The created currency.</returns>
+        /// <response code="200">The currency created.</response>
+        /// <response code="400">Internal server error.</response>
+        [HttpPut]
+        [Route("{currencyId:int}")]
+        [ProducesResponseType(typeof(CurrencyDto), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateAsync([FromRoute] int currencyId, [FromBody] CurrencyDto currencyUpdateDto)
+        {
+            var currency = await _currencyService.GetByIdAsync(currencyId);
+            if (currency == null) return NotFound();
+
+            currencyUpdateDto.Id = currency.Id;
+
+            var currencyModel = Mapper.Map<Currency>(currencyUpdateDto);
+            var result = _currencyService.UpdateAsync(currencyModel);
+            return Ok(Mapper.Map<CurrencyDto>(result));
+        }
+
+        /// <summary>
+        ///     Delete currency.
+        /// </summary>
+        /// <param name="currencyId">The currency identifier.</param>
+        /// <returns>The requested order.</returns>
+        /// <response code="200">The currency was successfully deleted.</response>
+        /// <response code="404">The currency was not found.</response>
+        [HttpDelete]
+        [Route("{currencyId:int}")]
+        [ProducesResponseType(typeof(bool), 200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int currencyId)
+        {
+            var currency = await _currencyService.GetByIdAsync(currencyId);
+            if (currency == null) return NotFound();
+
+            var result = await _currencyService.DeleteAsync(currencyId);
+            return Ok(result);
         }
     }
 }

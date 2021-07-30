@@ -11,5 +11,6 @@ namespace Financial_assistant.Services.BaseDbServices.Contracts
         Task<T> CreateAsync(T model);
         Task<T> UpdateAsync(T model);
         Task<bool> DeleteAsync(int id);
+        Task<bool> RestoreAsync(int id);
     }
 }

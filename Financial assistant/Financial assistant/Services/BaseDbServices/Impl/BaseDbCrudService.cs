@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Financial_assistant.Services.BaseDbServices.Impl
 {
     public abstract class BaseDbCrudService<T, TDbContext> : BaseDbQueryService<T, TDbContext>, ICrudService<T>
-        where T : class, IModel
+        where T : class, IModel, IDeletedModel
         where TDbContext : DbContext
     {
         protected BaseDbCrudService(TDbContext context) : base(context) { }
@@ -52,7 +52,23 @@ namespace Financial_assistant.Services.BaseDbServices.Impl
         {
             var exists = DbSet.SingleOrDefault(x => x.Id == id);
             if (exists == null) return;
+            exists.IsDeleted = true;
             DbSet.Remove(exists);
+        }
+
+        public virtual async Task<bool> RestoreAsync(int id)
+        {
+            Restore(id);
+            await Context.SaveChangesAsync();
+            return true;
+        }
+
+        protected virtual void Restore(int id)
+        {
+            var deleted = DbSet.IgnoreQueryFilters().SingleOrDefault(x => x.Id == id);
+            if (deleted == null || deleted.IsDeleted == false) return;
+            deleted.IsDeleted = false;
+            DbSet.Update(deleted);
         }
     }
 }

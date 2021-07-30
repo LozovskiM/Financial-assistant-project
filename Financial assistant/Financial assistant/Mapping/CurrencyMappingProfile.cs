@@ -8,7 +8,8 @@ namespace Financial_assistant.Mapping
     {
         public CurrencyMapperProfile()
         {
-            CreateMap<CurrencyDto, Currency>().PreserveReferences().ReverseMap().PreserveReferences();        
+            CreateMap<CurrencyDto, Currency>().PreserveReferences().ReverseMap().PreserveReferences();
+            CreateMap<CurrencyCreateDto, Currency>().PreserveReferences().ReverseMap().PreserveReferences();
         }
     }
 }
