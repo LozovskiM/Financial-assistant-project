@@ -17,10 +17,12 @@ namespace Financial_assistant.Controllers
     public class ConvertationController : BaseController
     {
         private readonly IConvertationService _convertationService;
+        private readonly ICurrencyService _currencyService;
 
-        public ConvertationController(IConvertationService convertationService, IMapper mapper) : base(mapper)
+        public ConvertationController(IConvertationService convertationService, ICurrencyService currencyService, IMapper mapper) : base(mapper)
         {
             _convertationService = convertationService;
+            _currencyService = currencyService;
         }
 
         /// <summary>
@@ -69,7 +71,8 @@ namespace Financial_assistant.Controllers
             var modelToCreate = Mapper.Map<Convertation>(convertationCreateDto);
             var createdModel = await _convertationService.CreateAsync(modelToCreate);
             var createdDto = Mapper.Map<ConvertationDto>(createdModel);
-            //enrich
+            createdDto.CurrencyFrom = Mapper.Map<CurrencyDto>(await _currencyService.GetByIdAsync(createdModel.CurrencyFromId));
+            createdDto.CurrencyTo = Mapper.Map<CurrencyDto>(await _currencyService.GetByIdAsync(createdModel.CurrencyToId));
             return Ok(createdDto);
         }
 
