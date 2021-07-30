@@ -81,6 +81,7 @@ namespace Financial_assistant.Controllers
         /// <returns>The created currency.</returns>
         /// <response code="200">The currency created.</response>
         /// <response code="400">Internal server error.</response>
+        /// <response code="404">The currency was not found.</response>
         [HttpPut]
         [Route("{currencyId:int}")]
         [ProducesResponseType(typeof(CurrencyDto), 200)]
@@ -93,7 +94,7 @@ namespace Financial_assistant.Controllers
             currencyUpdateDto.Id = currency.Id;
 
             var currencyModel = Mapper.Map<Currency>(currencyUpdateDto);
-            var result = _currencyService.UpdateAsync(currencyModel);
+            var result = await _currencyService.UpdateAsync(currencyModel);
             return Ok(Mapper.Map<CurrencyDto>(result));
         }
 

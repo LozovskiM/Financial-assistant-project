@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Financial_assistant.DTO.Classes;
+using Financial_assistant.DTO.Сlasses;
 using Financial_assistant.Models.DbModels;
 
 namespace Financial_assistant.Mapping

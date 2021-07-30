@@ -14,5 +14,21 @@ namespace Financial_assistant.Services.Impl
         public CurrencyService(FinancialAssistantDBContext context) : base(context) { 
         
         }
+
+        public override async Task<Currency> UpdateAsync(Currency model)
+        {
+            var currency = DbSet.SingleOrDefault(x => x.Id == model.Id);
+
+            //TODO: i18n
+            if (currency == null) throw new Exception("Currency not found.");
+
+            currency.Name = model.Name;
+            currency.Code = model.Code;
+
+            DbSet.Update(currency);
+
+            await Context.SaveChangesAsync();
+            return currency;
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace Financial_assistant.Controllers
             var modelToCreate = Mapper.Map<Convertation>(convertationCreateDto);
             var createdModel = await _convertationService.CreateAsync(modelToCreate);
             var createdDto = Mapper.Map<ConvertationDto>(createdModel);
-
+            //enrich
             return Ok(createdDto);
         }
 
@@ -81,18 +81,19 @@ namespace Financial_assistant.Controllers
         /// <returns>The created convertation.</returns>
         /// <response code="200">The convertation created.</response>
         /// <response code="400">Internal server error.</response>
+        /// <response code="404">The convertation was not found.</response>
         [HttpPut]
         [Route("{convertationId:int}")]
         [ProducesResponseType(typeof(ConvertationDto), 200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> UpdateAsync([FromRoute] int currencyId, [FromBody] double exchangeRate)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int convertationId, [FromBody] double exchangeRate)
         {
-            var convertation = await _convertationService.GetByIdAsync(currencyId);
+            var convertation = await _convertationService.GetByIdAsync(convertationId);
             if (convertation == null) return NotFound();
 
             convertation.ExchangeRate = exchangeRate;
 
-            var result = _convertationService.UpdateAsync(convertation);
+            var result = await _convertationService.UpdateAsync(convertation);
             return Ok(Mapper.Map<ConvertationDto>(result));
         }
 

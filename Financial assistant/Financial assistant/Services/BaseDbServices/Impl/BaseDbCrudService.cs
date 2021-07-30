@@ -38,7 +38,6 @@ namespace Financial_assistant.Services.BaseDbServices.Impl
         {
             var exists = DbSet.SingleOrDefault(x => x.Id == model.Id);
             if (exists == null) return;
-            Context.Update(model);
         }
 
         public virtual async Task<bool> DeleteAsync(int id)
