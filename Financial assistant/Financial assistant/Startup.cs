@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Financial_assistant.Services;
 
 namespace Financial_assistant
 {
@@ -30,6 +31,7 @@ namespace Financial_assistant
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<FinancialAssistantDBContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("FinancialAssistantDb")));
 
@@ -49,6 +51,8 @@ namespace Financial_assistant
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionTypeService, TransactionTypeService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<JWTService>();
 
             var assemblies = new List<Assembly>()
             {
@@ -78,6 +82,13 @@ namespace Financial_assistant
             app.UseSwagger();
 
             app.UseRouting();
+
+            app.UseCors(options => options
+                .WithOrigins(new[] { "https://localhost:3000"})
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+            );
 
             app.UseSwaggerUI(c =>
             {
