@@ -51,7 +51,6 @@ namespace Financial_assistant
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionTypeService, TransactionTypeService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<JWTService>();
 
             var assemblies = new List<Assembly>()

@@ -11,6 +11,7 @@ namespace Financial_assistant.Services.Contracts
 {
     public interface IUserService : ICrudService<User>
     {
-
+        public User GetByEmail(string email);
+        public User GetById(int id);
     }
 }

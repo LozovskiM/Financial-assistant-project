@@ -1,6 +1,9 @@
-﻿using Financial_assistant.DTO.Сlasses;
+﻿using AutoMapper;
+using Financial_assistant.Controllers.BaseControllers;
+using Financial_assistant.DTO.Сlasses;
 using Financial_assistant.Models.DbModels;
 using Financial_assistant.Services;
+using Financial_assistant.Services.Contracts;
 using Financial_assistant.Services.Impl;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +14,16 @@ using System.Threading.Tasks;
 
 namespace Financial_assistant.Controllers
 {
-    
-
     [Route("api")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserService _userService;
         private readonly JWTService _jwtService;
 
-        public AuthController(IUserRepository repository, JWTService jwtService)
+        public AuthController(IUserService userService, JWTService jwtService, IMapper mapper) : base(mapper)
         {
-            _repository = repository;
+            _userService = userService;
             _jwtService = jwtService;
         }
 
@@ -37,13 +38,13 @@ namespace Financial_assistant.Controllers
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
-            return Created("success", _repository.Create(user));
+            return Created("success", _userService.CreateAsync(user));
         }
 
         [HttpPost("login")]
         public IActionResult Login(LoginDto dto)
         {
-            var user = _repository.GetByEmail(dto.Email);
+            var user = _userService.GetByEmail(dto.Email);
             if (user == null) return BadRequest(new { message = "Invalid Credentials" });
   
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
@@ -75,7 +76,7 @@ namespace Financial_assistant.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var user = _repository.GetById(userId);
+                var user = _userService.GetById(userId);
 
                 return Ok(user);
             }

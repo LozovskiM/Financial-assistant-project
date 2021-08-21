@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using Financial_assistant.Attributes;
 using Financial_assistant.Controllers.BaseControllers;
 using Financial_assistant.DTO.Сlasses;
 using Financial_assistant.Models.DbModels;
+using Financial_assistant.Services;
 using Financial_assistant.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,10 +20,14 @@ namespace Financial_assistant.Controllers
     public class CurrencyController : BaseController
     {
         private readonly ICurrencyService _currencyService;
+        private readonly IUserService _userService;
+        private readonly JWTService _jwtService;
 
-        public CurrencyController(ICurrencyService currencyService, IMapper mapper) : base(mapper)
+        public CurrencyController(IUserService userService, JWTService jwtService, ICurrencyService currencyService, IMapper mapper) : base(mapper)
         {
             _currencyService = currencyService;
+            _userService = userService;
+            _jwtService = jwtService;
         }
 
         /// <summary>
@@ -28,6 +35,7 @@ namespace Financial_assistant.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Auth]
         [ProducesResponseType(typeof(IEnumerable<CurrencyDto>), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetAllAsync()
