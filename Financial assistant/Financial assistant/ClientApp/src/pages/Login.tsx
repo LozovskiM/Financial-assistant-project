@@ -11,7 +11,7 @@ const Login = (props: { setName: (name: string) => void }) => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        const response = await fetch('https://localhost:44385/api/login', {
+        const response = await fetch('https://localhost:44385/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -29,7 +29,7 @@ const Login = (props: { setName: (name: string) => void }) => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('https://localhost:44385/api/user', {
+                const response = await fetch('https://localhost:44385/api/auth/user', {
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include'
                 });

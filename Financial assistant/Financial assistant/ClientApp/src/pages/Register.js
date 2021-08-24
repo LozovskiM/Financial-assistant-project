@@ -50,7 +50,7 @@ var Register = function () {
             switch (_a.label) {
                 case 0:
                     e.preventDefault();
-                    return [4 /*yield*/, fetch('https://localhost:44385/api/register', {
+                    return [4 /*yield*/, fetch('https://localhost:44385/api/auth/register', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

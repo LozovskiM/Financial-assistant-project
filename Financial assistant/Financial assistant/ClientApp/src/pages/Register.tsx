@@ -14,7 +14,7 @@ const Register = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await fetch('https://localhost:44385/api/register', {
+        await fetch('https://localhost:44385/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

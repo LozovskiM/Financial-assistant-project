@@ -49,7 +49,7 @@ var Login = function (props) {
             switch (_a.label) {
                 case 0:
                     e.preventDefault();
-                    return [4 /*yield*/, fetch('https://localhost:44385/api/login', {
+                    return [4 /*yield*/, fetch('https://localhost:44385/api/auth/login', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             credentials: 'include',
@@ -73,7 +73,7 @@ var Login = function (props) {
             var response, content;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, fetch('https://localhost:44385/api/user', {
+                    case 0: return [4 /*yield*/, fetch('https://localhost:44385/api/auth/user', {
                             headers: { 'Content-Type': 'application/json' },
                             credentials: 'include'
                         })];

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Financial_assistant.Attributes;
 using Financial_assistant.Controllers.BaseControllers;
 using Financial_assistant.DTO.Сlasses;
 using Financial_assistant.Models.DbModels;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Financial_assistant.Controllers
 {
-    [Route("api")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : BaseController
     {
@@ -30,13 +31,8 @@ namespace Financial_assistant.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto dto)
         {
-            var user = new User
-            {
-                County = dto.County,
-                Name = dto.Name,
-                Email = dto.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
-            };
+            dto.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            var user = Mapper.Map<User>(dto);
 
             return Created("success", _userService.CreateAsync(user));
         }
@@ -46,7 +42,7 @@ namespace Financial_assistant.Controllers
         {
             var user = _userService.GetByEmail(dto.Email);
             if (user == null) return BadRequest(new { message = "Invalid Credentials" });
-  
+
             if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             {
                 return BadRequest(new { message = "Invalid Credentials" });
@@ -60,33 +56,24 @@ namespace Financial_assistant.Controllers
             });
 
             return Ok(new
-            { 
+            {
                 message = "success"
             });
         }
 
         [HttpGet("user")]
+        [Auth]
         public new IActionResult User()
         {
-            try
-            {
                 var jwt = Request.Cookies["jwt"];
-
                 var token = _jwtService.Verify(jwt);
-
                 int userId = int.Parse(token.Issuer);
-
                 var user = _userService.GetById(userId);
-
                 return Ok(user);
-            }
-            catch (Exception _)
-            {
-                return Unauthorized();
-            }
         }
 
         [HttpPost("logout")]
+        [Auth]
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");

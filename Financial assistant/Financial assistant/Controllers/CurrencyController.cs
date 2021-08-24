@@ -21,13 +21,11 @@ namespace Financial_assistant.Controllers
     {
         private readonly ICurrencyService _currencyService;
         private readonly IUserService _userService;
-        private readonly JWTService _jwtService;
 
         public CurrencyController(IUserService userService, JWTService jwtService, ICurrencyService currencyService, IMapper mapper) : base(mapper)
         {
             _currencyService = currencyService;
             _userService = userService;
-            _jwtService = jwtService;
         }
 
         /// <summary>

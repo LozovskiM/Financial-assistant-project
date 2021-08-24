@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\Currencies.tsx" />
     <None Remove="ClientApp\src\components\Nav.tsx" />
     <None Remove="ClientApp\src\pages\Home.tsx" />
     <None Remove="ClientApp\src\pages\Login.tsx" />

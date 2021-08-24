@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Currencies from './components/Currencies';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -15,7 +16,7 @@ function App() {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('https://localhost:44385/api/user', {
+                const response = await fetch('https://localhost:44385/api/auth/user', {
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include'
                 });
@@ -29,7 +30,7 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Nav name={name} setName={setName}/>
+                <Nav name={name} setName={setName} />
 
                 <main className="form-signin">
                     <Switch>

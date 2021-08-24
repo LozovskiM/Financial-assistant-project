@@ -24,3 +24,26 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+
+#news-bar {
+    width: 100%;
+    border: 1px solid black;
+    background: white;
+    font: 21px bold;
+    padding: 4px;
+}
+
+    #news-bar:hover {
+        transition: 0.37s;
+    }
+
+    #news-bar a {
+        padding: 8px 2px;
+        color: black;
+        text-decoration: none;
+    }
+
+        #news-bar a:hover {
+            transition: 0.37s;
+            color: red;
+        }

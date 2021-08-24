@@ -42,7 +42,7 @@ var Nav = function (props) {
     var logout = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, fetch('https://localhost:44385/api/logout', {
+                case 0: return [4 /*yield*/, fetch('https://localhost:44385/api/auth/logout', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         credentials: 'include'
