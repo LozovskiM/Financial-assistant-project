@@ -33,7 +33,7 @@ const Register = () => {
     }
 
     return (
-        <form onSubmit={submit}>
+        <form onSubmit={submit} className="logregform">
             <h1 className="h3 mb-3 fw-normal">Please register</h1>
 
             <input className="form-control" placeholder="Name" required
@@ -48,7 +48,7 @@ const Register = () => {
             <input className="form-control" placeholder="Country" required
                 onChange={e => setCountry(e.target.value)}
             />
-
+            
             <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
         </form>
     );

@@ -16,6 +16,7 @@ using System.Reflection;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Financial_assistant.Services;
+using Financial_assistant.DTO.Ñlasses;
 
 namespace Financial_assistant
 {
@@ -34,7 +35,7 @@ namespace Financial_assistant
             services.AddCors();
             services.AddDbContext<FinancialAssistantDBContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("FinancialAssistantDb")));
-
+            services.Configure<ApiKey>(Configuration.GetSection("ApiKeys"));
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

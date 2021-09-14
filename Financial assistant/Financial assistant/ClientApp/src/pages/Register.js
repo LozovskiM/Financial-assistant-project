@@ -70,7 +70,7 @@ var Register = function () {
     if (redirect) {
         return React.createElement(react_router_dom_1.Redirect, { to: "/login" });
     }
-    return (React.createElement("form", { onSubmit: submit },
+    return (React.createElement("form", { onSubmit: submit, className: "logregform" },
         React.createElement("h1", { className: "h3 mb-3 fw-normal" }, "Please register"),
         React.createElement("input", { className: "form-control", placeholder: "Name", required: true, onChange: function (e) { return setName(e.target.value); } }),
         React.createElement("input", { type: "email", className: "form-control", placeholder: "Email address", required: true, onChange: function (e) { return setEmail(e.target.value); } }),

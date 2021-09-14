@@ -40,6 +40,7 @@ var React = require("react");
 var react_1 = require("react");
 var react_router_dom_1 = require("react-router-dom");
 require("./App.css");
+var Currencies_1 = require("./pages/Currencies");
 var Nav_1 = require("./components/Nav");
 var Home_1 = require("./pages/Home");
 var Login_1 = require("./pages/Login");
@@ -74,7 +75,8 @@ function App() {
                 React.createElement(react_router_dom_1.Switch, null,
                     React.createElement(react_router_dom_1.Route, { path: "/", exact: true, component: function () { return React.createElement(Home_1.default, { name: name }); } }),
                     React.createElement(react_router_dom_1.Route, { path: "/login", component: function () { return React.createElement(Login_1.default, { setName: setName }); } }),
-                    React.createElement(react_router_dom_1.Route, { path: "/register", component: Register_1.default }))))));
+                    React.createElement(react_router_dom_1.Route, { path: "/register", component: Register_1.default }),
+                    React.createElement(react_router_dom_1.Route, { path: "/currencies", component: Currencies_1.default }))))));
 }
 exports.default = App;
 //# sourceMappingURL=App.js.map

@@ -91,7 +91,7 @@ var Login = function (props) {
     if (redirect) {
         return React.createElement(react_router_dom_1.Redirect, { to: "/" });
     }
-    return (React.createElement("form", { onSubmit: submit },
+    return (React.createElement("form", { onSubmit: submit, className: "logregform" },
         React.createElement("h1", { className: "h3 mb-3 fw-normal" }, "Please sign in"),
         React.createElement("input", { type: "email", className: "form-control", placeholder: "name@example.com", required: true, onChange: function (e) { return setEmail(e.target.value); } }),
         React.createElement("input", { type: "password", className: "form-control", placeholder: "Password", required: true, onChange: function (e) { return setPassword(e.target.value); } }),

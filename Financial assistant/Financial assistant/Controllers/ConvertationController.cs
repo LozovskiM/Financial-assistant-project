@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Financial_assistant.Attributes;
 using Financial_assistant.Controllers.BaseControllers;
 using Financial_assistant.DTO.Сlasses;
 using Financial_assistant.Models.DbModels;
@@ -30,6 +31,7 @@ namespace Financial_assistant.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Auth]
         [ProducesResponseType(typeof(IEnumerable<ConvertationDto>), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> GetAllAsync()
@@ -44,6 +46,7 @@ namespace Financial_assistant.Controllers
         /// <param name="id">The convertation identifier</param>
         /// <returns></returns>
         [HttpGet]
+        [Auth]
         [Route("{id:int}")]
         [ProducesResponseType(typeof(ConvertationDto), 200)]
         [ProducesResponseType(400)]

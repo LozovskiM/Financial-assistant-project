@@ -11,6 +11,6 @@ namespace Financial_assistant.Services.Contracts
 {
     public interface IConvertationService : ICrudService<Convertation>
     {
-
+        public void DeleteConvertationData();
     }
 }

@@ -11,6 +11,7 @@ namespace Financial_assistant.Services.Contracts
 {
     public interface ICurrencyService : ICrudService<Currency>
     {
-
+        public void DeleteCurrencyData();
+        public Currency GetByCode(string code);
     }
 }

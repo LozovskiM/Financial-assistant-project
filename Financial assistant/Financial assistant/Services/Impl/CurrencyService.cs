@@ -2,6 +2,7 @@
 using Financial_assistant.Models.DbModels;
 using Financial_assistant.Services.BaseDbServices.Impl;
 using Financial_assistant.Services.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,18 @@ namespace Financial_assistant.Services.Impl
     {
         public CurrencyService(FinancialAssistantDBContext context) : base(context) { 
         
+        }
+
+        public void DeleteCurrencyData()
+        {
+            Context.Currencies.FromSqlRaw("DELETE FROM Currency DBCC CHECKIDENT('Currency', RESEED, 0)");
+            Context.SaveChanges();
+        }
+
+        public Currency GetByCode(string code)
+        {
+            var currency = DbSet.SingleOrDefault(x => x.Code == code);
+            return currency;
         }
 
         public override async Task<Currency> UpdateAsync(Currency model)
@@ -30,5 +43,7 @@ namespace Financial_assistant.Services.Impl
             await Context.SaveChangesAsync();
             return currency;
         }
+
+
     }
 }

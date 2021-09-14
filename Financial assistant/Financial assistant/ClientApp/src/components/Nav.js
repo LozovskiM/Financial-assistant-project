@@ -56,21 +56,24 @@ var Nav = function (props) {
     }); };
     var menu;
     if (props.name === undefined) {
-        menu = (React.createElement("ul", { className: "navbar-nav me-auto mb-2 mb-md-0" },
-            React.createElement("li", { className: "nav-item" },
-                React.createElement(react_router_dom_1.Link, { to: "/login", className: "nav-link active" }, "Login")),
-            React.createElement("li", { className: "nav-item" },
-                React.createElement(react_router_dom_1.Link, { to: "/register", className: "nav-link active" }, "Register"))));
+        menu = (React.createElement("ul", { className: "headerul" },
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/login", className: "linkfonts", style: { textDecoration: 'none' } }, "Login")),
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/register", className: "linkfonts", style: { textDecoration: 'none' } }, "Register"))));
     }
     else {
-        menu = (React.createElement("ul", { className: "navbar-nav me-auto mb-2 mb-md-0" },
-            React.createElement("li", { className: "nav-item" },
-                React.createElement(react_router_dom_1.Link, { to: "/login", className: "nav-link active", onClick: logout }, "Logout"))));
+        menu = (React.createElement("ul", { className: "headerul" },
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/account", className: "linkfonts", style: { textDecoration: 'none' } }, "My account")),
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/backaccounts", className: "linkfonts", style: { textDecoration: 'none' } }, "Bank accounts")),
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/currencies", className: "linkfonts", style: { textDecoration: 'none' } }, "Currencies")),
+            React.createElement("li", { className: "headerli" },
+                React.createElement(react_router_dom_1.Link, { to: "/login", className: "linkfonts", style: { textDecoration: 'none' }, onClick: logout }, "Logout"))));
     }
-    return (React.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark mb-4" },
-        React.createElement("div", { className: "container-fluid" },
-            React.createElement(react_router_dom_1.Link, { to: "/", className: "navbar-brand" }, "Home"),
-            React.createElement("div", null, menu))));
+    return (React.createElement("div", { className: "headerdiv" }, menu));
 };
 exports.default = Nav;
 //# sourceMappingURL=Nav.js.map

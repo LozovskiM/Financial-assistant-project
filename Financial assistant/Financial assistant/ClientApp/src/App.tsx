@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Currencies from './components/Currencies';
+import Currencies from './pages/Currencies';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -37,6 +37,7 @@ function App() {
                         <Route path="/" exact component={() => <Home name={name}/>} />
                         <Route path="/login" component={() => <Login setName={setName} />}/>
                         <Route path="/register" component={Register} />
+                        <Route path="/currencies" component={Currencies} />
                     </Switch>
                 </main>
             </BrowserRouter>

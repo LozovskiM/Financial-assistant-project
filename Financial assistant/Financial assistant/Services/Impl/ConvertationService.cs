@@ -16,6 +16,12 @@ namespace Financial_assistant.Services.Impl
         
         }
 
+        public void DeleteConvertationData()
+        {
+            Context.Currencies.FromSqlRaw("DELETE FROM Convertation DBCC CHECKIDENT('Convertation', RESEED, 0)");
+            Context.SaveChanges();
+        }
+
         public override async Task<IEnumerable<Convertation>> GetAllAsync()
         {
             return await DbSetAsNoTracking.Include(x => x.CurrencyTo).Include(x => x.CurrencyFrom).ToListAsync();
